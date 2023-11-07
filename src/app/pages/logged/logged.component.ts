@@ -1,20 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-logged',
   templateUrl: './logged.component.html',
-  styleUrls: ['./logged.component.scss']
+  styleUrls: ['./logged.component.scss'],
 })
 export class LoggedComponent implements OnInit {
   userInfo: any;
+  apiToken?: string;
 
-  constructor(private userService: UserService) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.userService.getUserInfo().subscribe((data: any) => {
-      this.userInfo = data.user_info;
-      console.log(this.userInfo);
+    this.route.queryParams.subscribe((params) => {
+      this.apiToken = params['api_token'];
+      this.userInfo = JSON.parse(params['user_info']);
     });
   }
 }
