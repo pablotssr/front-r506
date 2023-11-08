@@ -17,6 +17,7 @@ import { InventoryComponent } from './pages/logged/inventory/inventory.component
 import { EventsComponent } from './pages/logged/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './shared/services/user.service';
+import { authGuard } from './shared/auth.guard';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { UserService } from './shared/services/user.service';
     HttpClientModule,
   ],
   providers: [
-    UserService
+    UserService, authGuard
   ],
   bootstrap: [AppComponent]
 })

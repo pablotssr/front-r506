@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -14,29 +13,27 @@ export class LoginComponent {
   constructor(
     private userService: UserService,
     private router: Router
-  ) //  private route: ActivatedRoute
-  {}
+  ) {}
 
   logbtn() {
-    window.location.href = environment.apiUrl + '/login/google';
+    window.location.href = environment.lrvUrl + '/login/google';
   }
   
-  checkUserInfo() {
-    this.userService
-      .getUserInfo()
-      .pipe(
-        map((user: any) => {
-          console.log('User Info:', user);
-        }),
-        catchError((error) => {
-          console.error('Error fetching user info:', error);
-          throw error; // rethrow the error
-        })
-      )
-      .subscribe();
+async checkUserInfo() {
+  try {
+    await this.userService.getUser(); // Call the modified getUser function
+    console.log('User Info:', this.userService.user); // Assuming you store user info in userService.user
+  } catch (error) {
+    console.error('Error fetching user info:', error);
+    throw error; // rethrow the error
   }
+}
 
   handleProviderCallback() {
-    this.userService.handleProviderCallback().subscribe();
+    this.userService.handleProviderCallback().subscribe((response) => {
+      console.log('Handle Provider Callback Response:', response);
+      this.router.navigate(['']);
+      // Additional code after successful callback if needed
+    });
   }
 }

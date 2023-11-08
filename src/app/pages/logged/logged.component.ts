@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-logged',
@@ -9,13 +11,50 @@ import { ActivatedRoute } from '@angular/router';
 export class LoggedComponent implements OnInit {
   userInfo: any;
   apiToken?: string;
-
-  constructor(private route: ActivatedRoute) {}
+  userHasPet: boolean = false;
+  petInfo: any = {};
+  token?: string;
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.apiToken = params['api_token'];
       this.userInfo = JSON.parse(params['user_info']);
+      this.token = this.apiToken;
+      console.log(this.apiToken);
+      if(this.apiToken){
+        this.userService.savTokens(this.apiToken)
+      }
+      
+      this.initializePetInfo();
     });
+  }
+
+  initializePetInfo() {
+    this.userService.getPet().then(
+      (response) => {
+        this.userHasPet = true;
+        this.petInfo = response;
+      },
+      () => {
+        const petName = prompt('Please enter a name for your pet');
+        if (petName) {
+          this.userService.createPet(petName).subscribe(
+            (createdPet) => {
+              console.log(createdPet);
+              this.userHasPet = true;
+              this.petInfo = createdPet;
+            },
+            (createPetError) => {
+              console.error(createPetError);
+            }
+          );
+        }
+      }
+    );
   }
 }
