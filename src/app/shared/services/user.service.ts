@@ -2,17 +2,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
-import { tap } from 'rxjs/operators';
 import { User } from '../model/user';
 // import { DateTime } from 'luxon';
-
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+
   private token?: string;
+  
   private googleToken?: {
     token?: string;
     refresh_token: string;
@@ -26,7 +26,10 @@ export class UserService {
   isInit: boolean = false;
   initPromise: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) {
     this.init();
   }
 
@@ -35,31 +38,27 @@ export class UserService {
 
     if (this.urlParams.has('code')) {
       let code = this.urlParams.get('code') as string;
-      let res = await this.requestApi('/login/google/callback', 'GET', {
-        code,
-      });
+      let res = await this.requestApi('/login/google/callback', 'GET', {code});
       if (res && res.token) {
         this.user = res.user;
         this.savTokens(res.token);
       }
     } else {
-      this.token = localStorage.getItem('apiToken')
-        ? localStorage.getItem('apiToken') as string
-        : undefined;
+      this.token = localStorage.getItem('apiToken') ? JSON.parse(localStorage.getItem('apiToken') as string).token : undefined;
 
       if (this.token) {
         await this.getUser();
       }
     }
+
+    this.isInit = true;
+    this.initPromise.next(true);
   }
 
   public async requestApi(action: string, method: string = 'GET', datas: any = {}, httpOptions: any = {}): Promise<any> {
     // if (!this.onlineStatusService.getIsOnline()) {
     //   console.log('no request because offline');
     //   return;
-    // }
-
-    
     console.log('the token', this.token);
 
     const methodWanted = method.toLowerCase();
@@ -108,10 +107,16 @@ export class UserService {
     return req.toPromise();
   }
 
-  savTokens(apiToken: string){
-    localStorage.setItem('apiToken', apiToken);
+  savTokens(apiToken: {
+    access_token:string
+    //
+  }  ){
+    localStorage.setItem('apiToken', JSON.stringify({
+      token: apiToken.access_token,
+      // expires_at: DateTime.now().plus({seconds: apiToken.expires_in}).toISO(),
+    }));
 
-    this.token = apiToken;
+    this.token = apiToken.access_token;
   }
 
   async getUser() {
@@ -124,25 +129,10 @@ export class UserService {
       });
   }
 
-
-  handleProviderCallback() {
-    return this.http.get(environment.lrvUrl + '/login/provider/callback').pipe(
-      tap((response: any) => {
-        console.log('API Response:', response);
-        const apiToken = response.api_token;
-        const userInfo = response.user_info;
-
-        this.token = apiToken;
-        localStorage.setItem('api_token', apiToken);
-        localStorage.setItem('user_info', JSON.stringify(userInfo));
-      })
-    );
-  }
-
-  isLogged(): boolean{
+   isLogged(): boolean{
     return this.token !== undefined;
   }
-
+  
   isCompleteProfile(): boolean{
     return !!this.user?.name;
   }
@@ -157,31 +147,30 @@ export class UserService {
   }
 
 
-   private addHeaders(): HttpHeaders {
-     let headers = new HttpHeaders();
-     if (this.token) {
-       headers = headers.set('Authorization', `Bearer ${this.token}`);
-     }
-     return headers;
+    private addHeaders(): HttpHeaders {
+      let headers = new HttpHeaders();
+      if (this.token) {
+        headers = headers.set('Authorization', `Bearer ${this.token}`);
+      }
+      return headers;
+    }
+   getUserInfo() {
+     return this.http.get(environment.apiUrl + '/user', {
+        headers: this.addHeaders(),
+     });
    }
-  // getUserInfo() {
-  //   return this.http.get(environment.apiUrl + '/user', {
-  //      headers: this.addHeaders(),
-  //   });
-  // }
 
-  createPet(name: string) {
-    return this.http.post(
-      environment.apiUrl + '/pet',
-      { name },
-     { headers: this.addHeaders() }
-    );
-  }
+   createPet(name: string) {
+     return this.http.post(
+       environment.apiUrl + '/pet',
+       { name },
+     );
+   }
 
-  getPet() {
-    console.log('aaaaaaaahhhhhhhhh', this.token);
-    return this.requestApi('/pet');
-  }
+   getPet() {
+     console.log('aaaaaaaahhhhhhhhh', this.token);
+     return this.requestApi('/pet');
+   }
 
   // isLogged(): boolean {
   //   return this.token !== undefined;

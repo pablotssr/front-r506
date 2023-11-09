@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { UserService } from '../../shared/services/user.service';
-import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +10,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(
+  environment = environment;
+  
+  constructor(private http: HttpClient,
     private userService: UserService,
     private router: Router
   ) {}
 
-  logbtn() {
-    window.location.href = environment.lrvUrl + '/login/google';
-  }
+  // logbtn() {
+  //   this.http.get<any>(environment.lrvUrl + '/login/google').subscribe(
+  //     (response) => {
+  //       console.log(response);
+  //       const apiToken = response['api_token'];
+  //       const userInfo = response['user_info'];
+  
+  //       localStorage.setItem('api_token', apiToken);
+  //       localStorage.setItem('user_info', userInfo);      },
+  //     (error) => {
+  //       console.error(error);
+        
+  //     }
+  //   );}
   
 async checkUserInfo() {
   try {
@@ -29,11 +42,5 @@ async checkUserInfo() {
   }
 }
 
-  handleProviderCallback() {
-    this.userService.handleProviderCallback().subscribe((response) => {
-      console.log('Handle Provider Callback Response:', response);
-      this.router.navigate(['']);
-      // Additional code after successful callback if needed
-    });
-  }
+
 }

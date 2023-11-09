@@ -24,10 +24,10 @@ export class LoggedComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.apiToken = params['api_token'];
       this.userInfo = JSON.parse(params['user_info']);
-      this.token = this.apiToken;
       console.log(this.apiToken);
       if(this.apiToken){
-        this.userService.savTokens(this.apiToken)
+        this.token = this.apiToken;
+        this.userService.savTokens({ access_token: this.token });
       }
       
       this.initializePetInfo();

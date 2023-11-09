@@ -25,6 +25,7 @@ export class authGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/login']);
+  
     return false;
   }
   private isLoginOrRegister(): boolean {
@@ -51,6 +52,7 @@ export class authGuard implements CanActivate {
 
   checkLogin(state: RouterStateSnapshot): boolean {
     this.url = state.url;
+    console.log(state.url);
     if (this.userService.isLogged()) {
       return this.authState();
     }

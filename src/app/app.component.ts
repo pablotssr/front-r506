@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
-
+import { UserService } from './shared/services/user.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+  
   title = 'front-r506';
+  constructor(public userService: UserService) {}
   // logoutbtn(){
   //   window.location.href = environment.apiUrl + '/logout'
   // }
