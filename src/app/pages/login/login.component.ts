@@ -16,29 +16,14 @@ export class LoginComponent {
     private userService: UserService,
     private router: Router
   ) {}
-
-  // logbtn() {
-  //   this.http.get<any>(environment.lrvUrl + '/login/google').subscribe(
-  //     (response) => {
-  //       console.log(response);
-  //       const apiToken = response['api_token'];
-  //       const userInfo = response['user_info'];
-  
-  //       localStorage.setItem('api_token', apiToken);
-  //       localStorage.setItem('user_info', userInfo);      },
-  //     (error) => {
-  //       console.error(error);
-        
-  //     }
-  //   );}
   
 async checkUserInfo() {
   try {
-    await this.userService.getUser(); // Call the modified getUser function
-    console.log('User Info:', this.userService.user); // Assuming you store user info in userService.user
+    await this.userService.getUser(); 
+    console.log('User Info:', this.userService.user); 
   } catch (error) {
     console.error('Error fetching user info:', error);
-    throw error; // rethrow the error
+    throw error; 
   }
 }
 

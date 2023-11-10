@@ -8,7 +8,10 @@ import { authGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   {path: 'login',component: LoginComponent, canActivate: [authGuard]},
-  {path: '', component: LoggedComponent, canActivate: [authGuard]}
+  {path: '', component: LoggedComponent, canActivate: [authGuard],
+  children: [
+    {path: 'pet',component: PetComponent, canActivate: [authGuard]}
+  ]}
 ];
 
 @NgModule({

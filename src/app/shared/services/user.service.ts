@@ -10,9 +10,8 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-
   private token?: string;
-  
+
   private googleToken?: {
     token?: string;
     refresh_token: string;
@@ -26,10 +25,7 @@ export class UserService {
   isInit: boolean = false;
   initPromise: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private http: HttpClient, 
-    private router: Router
-  ) {
+  constructor(private http: HttpClient, private router: Router) {
     this.init();
   }
 
@@ -38,29 +34,42 @@ export class UserService {
 
     if (this.urlParams.has('code')) {
       let code = this.urlParams.get('code') as string;
-      let res = await this.requestApi('/login/google/callback', 'GET', {code});
+      let res = await this.requestApi('/login/google/callback', 'GET', {
+        code,
+      });
       if (res && res.token) {
         this.user = res.user;
         this.savTokens(res.token);
       }
+    } else if(this.urlParams.has('apiToken')){
+      localStorage.setItem('apiToken', this.urlParams.get('apiToken'));
+      this.user = this.urlParams.get('user');
+      this.token =  this.urlParams.get('apiToken');
+      console.log(this.token);
+      console.log(this.user);
+      this.router.navigate(['/']);
     } else {
-      this.token = localStorage.getItem('apiToken') ? JSON.parse(localStorage.getItem('apiToken') as string).token : undefined;
-
-      if (this.token) {
-        await this.getUser();
+      let token = localStorage.getItem('apiToken');
+      console.log(token);
+      if(token){
+        this.token = token;
       }
     }
-
     this.isInit = true;
     this.initPromise.next(true);
   }
 
-  public async requestApi(action: string, method: string = 'GET', datas: any = {}, httpOptions: any = {}): Promise<any> {
+  public async requestApi(
+    action: string,
+    method: string = 'GET',
+    datas: any = {},
+    httpOptions: any = {}
+  ): Promise<any> {
     // if (!this.onlineStatusService.getIsOnline()) {
     //   console.log('no request because offline');
     //   return;
-    console.log('the token', this.token);
-
+    // console.log('the token', this.token);
+    // console.log('a',this.user);
     const methodWanted = method.toLowerCase();
     let route = environment.apiUrl + action;
 
@@ -68,14 +77,17 @@ export class UserService {
 
     if (httpOptions.headers === undefined) {
       httpOptions.headers = new HttpHeaders({
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       });
     }
 
     if (this.token) {
-      httpOptions.headers = httpOptions.headers.set('Authorization', 'Bearer ' + this.token);
+      httpOptions.headers = httpOptions.headers.set(
+        'Authorization',
+        'Bearer ' + this.token
+      );
     }
 
     switch (methodWanted) {
@@ -89,16 +101,24 @@ export class UserService {
         req = this.http.put(route, datas, httpOptions);
         break;
       case 'delete':
-        route += '?' + Object.keys(datas).map((key) => {
-          return key + '=' + datas[key];
-        }).join('&');
+        route +=
+          '?' +
+          Object.keys(datas)
+            .map((key) => {
+              return key + '=' + datas[key];
+            })
+            .join('&');
 
         req = this.http.delete(route, httpOptions);
         break;
       default:
-        route += '?' + Object.keys(datas).map((key) => {
-          return key + '=' + datas[key];
-        }).join('&');
+        route +=
+          '?' +
+          Object.keys(datas)
+            .map((key) => {
+              return key + '=' + datas[key];
+            })
+            .join('&');
 
         req = this.http.get(route, httpOptions);
         break;
@@ -108,36 +128,34 @@ export class UserService {
   }
 
   savTokens(apiToken: {
-    access_token:string
+    access_token: string;
     //
-  }  ){
-    localStorage.setItem('apiToken', JSON.stringify({
-      token: apiToken.access_token,
-      // expires_at: DateTime.now().plus({seconds: apiToken.expires_in}).toISO(),
-    }));
-
+  }) {
+    localStorage.setItem('apiToken', JSON.stringify(apiToken));
     this.token = apiToken.access_token;
   }
 
   async getUser() {
-    await this.requestApi('/user', 'GET')
-      .then((res) => {
-        this.user = res;
-      }, (err) => {
-        console.error(err);
-        this.logout();
-      });
+    try {
+      const res = await this.requestApi('/user', 'GET');
+      this.user = res;
+      return res;
+    } catch (err) {
+      console.error(err);
+      this.logout();
+    }
   }
 
-   isLogged(): boolean{
+  isLogged(): boolean {
+    // console.log(this.token);
     return this.token !== undefined;
   }
-  
-  isCompleteProfile(): boolean{
+
+  isCompleteProfile(): boolean {
     return !!this.user?.name;
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('apiToken');
     localStorage.removeItem('gitHubToken');
     this.token = undefined;
@@ -146,35 +164,28 @@ export class UserService {
     this.router.navigate(['/login']);
   }
 
-
-    private addHeaders(): HttpHeaders {
-      let headers = new HttpHeaders();
-      if (this.token) {
-        headers = headers.set('Authorization', `Bearer ${this.token}`);
-      }
-      return headers;
+  private addHeaders(): HttpHeaders {
+    let headers = new HttpHeaders();
+    if (this.token) {
+      headers = headers.set('Authorization', `Bearer ${this.token}`);
     }
-   getUserInfo() {
-     return this.http.get(environment.apiUrl + '/user', {
-        headers: this.addHeaders(),
-     });
-   }
+    return headers;
+  }
+  getUserInfo() {
+    return this.http.get(environment.apiUrl + '/user', {
+      headers: this.addHeaders(),
+    });
+  }
 
-   createPet(name: string) {
-     return this.http.post(
-       environment.apiUrl + '/pet',
-       { name },
-     );
-   }
+  createPet(name: string) {
+    return this.requestApi('/pet', 'POST', {name})
+    }
 
-   getPet() {
-     console.log('aaaaaaaahhhhhhhhh', this.token);
-     return this.requestApi('/pet');
-   }
+  getPet() {
+    return this.requestApi('/pet', 'GET');
+  }
 
   // isLogged(): boolean {
   //   return this.token !== undefined;
   // }
-
-  
 }

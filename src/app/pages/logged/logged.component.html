@@ -1,13 +1,8 @@
-<p>masterclass mgl</p>
-<p>tu es connecté</p>
-<div>
-    <p>email: {{userInfo.email}}</p>
-    <p>email: {{token}}</p>
+<router-outlet></router-outlet>
 
-</div>      
-
-<!-- <div *ngIf="userHasPet">
-    <p>You have a pet!</p>
-    <p>Pet Name: {{ petInfo.name }}</p>
-  
-</div> -->
+<div class="fixed bottom-0 w-full flex">
+    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">{{petInfo.name}}</button>
+    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Journal</button>
+    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Shop</button>
+    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Infos</button>
+  </div>

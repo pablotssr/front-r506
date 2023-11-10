@@ -14,7 +14,7 @@ export class authGuard implements CanActivate {
 
   private authState(): boolean {
     if (this.isLoginOrRegister()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['']);
       return false;
     }
     return true;
@@ -25,9 +25,10 @@ export class authGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/login']);
-  
+  console.log('noauth');
     return false;
   }
+  
   private isLoginOrRegister(): boolean {
     if (this.url.includes('/login')) {
       return true;
@@ -52,7 +53,7 @@ export class authGuard implements CanActivate {
 
   checkLogin(state: RouterStateSnapshot): boolean {
     this.url = state.url;
-    console.log(state.url);
+    // console.log(this.url);
     if (this.userService.isLogged()) {
       return this.authState();
     }
