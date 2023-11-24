@@ -1,1 +1,16 @@
-<p>infos works!</p>
+<div *ngIf="userHasInfos">
+
+<p class="nom">{{ userInfo.user}}</p>
+<br>
+<div class='container'>
+    <p *ngIf='userInfo.argent == null' class="ct"><i class="fas fa-coins"></i> : 0 € </p>
+    <p *ngIf="userInfo.argent !== null" class="ct"><i class="fas fa-coins"></i> : {{userInfo.argent}} €</p>
+<br>
+    <p *ngIf='userInfo.pet_actuel.age == 1' class="ct"> <i class="fas fa-face-smile"></i> : {{userInfo.pet_actuel.nom}}, {{userInfo.pet_actuel.age}} an</p>
+    <p *ngIf='userInfo.pet_actuel.age > 1' class="ct"><i class="fas fa-face-smile"></i> : {{userInfo.pet_actuel.nom}}, {{userInfo.pet_actuel.age}} ans</p>
+    <br>
+    <p *ngIf='userInfo.pet_le_plus_vieux.age == 1' class="ct"> <i class="fas fa-person-cane"></i> : {{userInfo.pet_le_plus_vieux.nom}}, {{userInfo.pet_le_plus_vieux.age}} an</p>
+    <p *ngIf='userInfo.pet_le_plus_vieux.age > 1' class="ct"><i class="fas fa-person-cane"></i> : {{userInfo.pet_le_plus_vieux.nom}}, {{userInfo.pet_le_plus_vieux.age}} ans</p>
+</div>
+
+</div>

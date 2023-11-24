@@ -37,6 +37,7 @@ export class LoggedComponent implements OnInit {
     });
   }
 
+
   initializePetInfo() {
     this.userService.getPet().then((res) => {
       if (res && res.pet) {
@@ -62,4 +63,13 @@ export class LoggedComponent implements OnInit {
       console.error("Error fetching pet information", error);
     });
   }
+
+  navigateTo(page: string){
+    const currentUrl = this.router.url.split('/')[1]; // Get the current route path
+
+    console.log(currentUrl);
+  if (currentUrl !== page) {
+     this.router.navigate([`/${page}`]); 
+   }
+   }
 }

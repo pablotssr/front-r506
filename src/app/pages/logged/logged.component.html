@@ -1,8 +1,8 @@
 <router-outlet></router-outlet>
 
 <div class="fixed bottom-0 w-full flex">
-    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">{{petInfo.name}}</button>
-    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Journal</button>
-    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Shop</button>
-    <button class="flex-1 h-16 bg-white text-black focus:bg-gray-300">Infos</button>
-  </div>
+  <button class="flex-1 h-16 bg-gray-100 text-black focus:bg-gray-300" (click)="navigateTo('pet')">{{petInfo.name}}</button>
+  <button class="flex-1 h-16 bg-gray-100  text-black focus:bg-gray-300" (click)="navigateTo('diary')">Journal</button>
+  <button class="flex-1 h-16 bg-gray-100  text-black focus:bg-gray-300" (click)="navigateTo('shop')">Shop</button>
+  <button class="flex-1 h-16 bg-gray-100  text-black focus:bg-gray-300" (click)="navigateTo('infos')">Infos</button>
+</div>

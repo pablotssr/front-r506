@@ -185,6 +185,9 @@ export class UserService {
     return this.requestApi('/pet', 'GET');
   }
 
+  getInfo() {
+    return this.requestApi('/auth/infos', 'GET');
+  }
   // isLogged(): boolean {
   //   return this.token !== undefined;
   // }
