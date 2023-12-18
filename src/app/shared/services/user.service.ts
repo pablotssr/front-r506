@@ -185,6 +185,42 @@ export class UserService {
     return this.requestApi('/pet', 'GET');
   }
 
+  petDiary(){
+    return this.requestApi('/pet/diary','GET');
+  }
+  
+  toPet(){
+    return this.requestApi('/action/caresser','GET');
+  }
+
+  mathRes(score: number){
+    return this.requestApi('/action/maths', 'POST', {score});
+  }
+
+  snakeRes(score: number){
+    return this.requestApi('/action/snake', 'POST', {score});
+  }
+
+  runRes(score: number){
+    return this.requestApi('/action/run', 'POST', {score});
+  }
+
+  giveItem(item_Id: number){
+    return this.requestApi('/action/give', 'POST', {item_Id});
+  }
+
+  buyItem(item: number){
+    return this.requestApi('/item/buy', 'POST', {item});
+  }
+  inventory(){
+    return this.requestApi('/item/inventory/see','GET')
+  }
+  seeShop(){
+    return this.requestApi('/item/shop/see','GET');
+  }
+  toClean(){
+    return this.requestApi('/action/laver','GET');
+  }
   getInfo() {
     return this.requestApi('/auth/infos', 'GET');
   }

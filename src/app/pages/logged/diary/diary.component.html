@@ -1,1 +1,14 @@
-<p>diary works!</p>
+<div *ngIf="petHasDiary">
+<p class="nom">{{petInfo.name}}</p>
+
+<div class="journal" *ngFor="let day of getDiaryKeys()">
+    <p class="jour">{{ day }}</p>
+    <ul>
+      <li class="actions" *ngFor="let activity of diaryInfo[day]">
+        {{ activity }}.
+      </li>
+    </ul>
+    <br>
+  </div>
+  <br><br>
+</div>

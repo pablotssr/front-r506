@@ -7,8 +7,18 @@
   .ct {
     font-size:25px;
     text-transform: capitalize;
+
   }
 
+  .ct::first-letter{
+    text-transform: capitalize;
+  }
   .container {
-    margin-left: 20px;
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Adjust vertical space between elements */
+  align-items: flex-start; /* Adjust horizontal alignment of elements */
+  height: calc(70vh); /* Calculate height to occupy remaining vertical space */
+  padding-left: 20px;
+
   }

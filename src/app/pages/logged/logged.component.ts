@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -20,6 +20,11 @@ export class LoggedComponent implements OnInit {
     private router: Router,
     private userService: UserService
   ) {}
+
+  shouldDisplayNavButtons(): boolean {
+    const currentRoute = this.route.snapshot.firstChild?.routeConfig?.path;
+    return currentRoute ? !['maths', 'snake', 'run'].includes(currentRoute) : true;
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(async (params) => {

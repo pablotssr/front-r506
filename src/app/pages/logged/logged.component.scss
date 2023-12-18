@@ -1,1 +1,10 @@
+.nav{
+    position: fixed;
+    bottom: 0!important;
+    width: 100%;
+    display: flex;
+}
 
+.prenom{
+    text-transform: capitalize;
+}

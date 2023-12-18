@@ -1,1 +1,19 @@
-<p>maths works!</p>
+<p class="nom">Maths</p>
+
+<div class="jeu">
+<button id="startButton" (click)="startGame()">Prêt ?</button>
+    <div id="gameArea" style="display: none;">
+        <p>Question <span id="questionNumber">1</span>/10</p>
+        <p id="question"></p>
+        <br>
+        <div class="input-container">
+        <input type="text" id="answerInput" placeholder="Entrez la réponse (chiffres uniquement)" (keydown.Enter)="validateAnswer()">
+        <button id="validateButton" (click)="validateAnswer()">Valider</button>
+        </div>
+        <div id="timer" style="width: 90%; height: 5px; background-color: green;"></div>
+    </div>
+    <div id="result" style="display: none;">
+        <p>Nombre de bonnes réponses: <span id="correctAnswers">0</span>/10</p>
+        <p>Score: <span id="score">0</span></p>
+    </div>
+</div>
