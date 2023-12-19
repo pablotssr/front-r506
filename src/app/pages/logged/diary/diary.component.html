@@ -1,14 +1,25 @@
 <div *ngIf="petHasDiary">
-<p class="nom">{{petInfo.name}}</p>
+  <p class="nom">{{ petInfo.name }}</p>
 
-<div class="journal" *ngFor="let day of getDiaryKeys()">
+  <div class="journal" *ngFor="let day of getDiaryKeys()">
     <p class="jour">{{ day }}</p>
     <ul>
       <li class="actions" *ngFor="let activity of diaryInfo[day]">
-        {{ activity }}.
+        <ng-container *ngIf="activity.description">
+        <ng-container *ngIf="activity.score != 0">
+          {{ activity.description }} - {{ activity.score }} points.
+        </ng-container>
+        <ng-container *ngIf="activity.score == 0">
+          {{ activity.description }}.
+        </ng-container>
+      </ng-container>
+
+        <ng-container *ngIf="!activity.description">
+          {{ activity }}.
+        </ng-container>
       </li>
     </ul>
-    <br>
+    <br />
   </div>
-  <br><br>
+  <br /><br />
 </div>

@@ -8,9 +8,8 @@ import { UserService } from '../../../shared/services/user.service';
 })
 export class DiaryComponent {
   petHasDiary: boolean = false;
-  diaryInfo: { [key: string]: string[] }= {};
+  diaryInfo: { [key: string]: any[] }= {};
   petInfo: any = {}; 
-
   constructor(
     private userService: UserService
   ) {}

@@ -11,9 +11,9 @@ export class ShopComponent {
   shopInfo: any = {};
   hasItems: boolean = true;
 
-  shopItems: any[] = []; // Array to store item names and prices
-  itemBought: boolean[] = []; // Array to track bought items
-  itemIcons: string[] = []; // Array to store item icons
+  shopItems: any[] = []; 
+  itemBought: boolean[] = []; 
+  itemIcons: string[] = []; 
 
   constructor(
     private userService: UserService
@@ -28,7 +28,7 @@ ngOnInit() {
       if (res) {
         this.hasShop = true;
         this.shopInfo = res;
-        this.hasItems = Object.keys(res).length > 0; // Check if the response has items
+        this.hasItems = Object.keys(res).length > 0; 
         if (this.hasItems) {
           this.initializeShopItems(res);
         }
@@ -37,36 +37,45 @@ ngOnInit() {
     });
   }
 
-initializeShopItems(res: any) {
-  for (let i = 1; i <= 3; i++) {
-    const itemName = this.shopInfo[`Item${i}`];
-    const price = this.shopInfo[`Price${i}`];
-
-    this.shopItems.push({ name: itemName, price: price });
-    this.itemBought.push(false); 
-    this.itemIcons.push(this.getItemIcon(i)); 
-  }
-}
-
-buyItem(itemNumber: number) {
-  this.userService.buyItem(itemNumber).then((res) => {
-    if (res) {
-      this.itemBought[itemNumber - 1] = true;
-      console.log(res);
+  initializeShopItems(res: any) {
+    this.shopItems = [];
+    this.itemBought = [];
+    this.itemIcons = [];
+  
+    for (let i = 1; i <= 3; i++) {
+      const itemName = res[`Item${i}`];
+      const price = res[`Price${i}`];
+  
+      if (itemName && price) {
+        this.shopItems.push({ name: itemName, price: price });
+        this.itemBought.push(false);
+        this.itemIcons.push(this.getItemIcon(i));
+      } else {
+        this.itemBought.push(true);
+      }
     }
-  });
-}
+  }
+
+  buyItem(itemNumber: number) {
+    this.userService.buyItem(itemNumber).then((res) => {
+      if (res) {
+        this.itemBought[itemNumber - 1] = true;
+        this.loadShopItems();
+        console.log(res);
+      }
+    });
+  }
 
 getItemIcon(itemNumber: number): string {
   switch (itemNumber) {
     case 1:
-      return 'fas fa-cubes-stacked fa-3x'; // Icon for item 1
+      return 'fas fa-cubes-stacked fa-3x'; 
     case 2:
-      return 'fas fa-utensils fa-3x'; // Icon for item 2
+      return 'fas fa-utensils fa-3x'; 
     case 3:
-      return 'fas fa-flask fa-3x'; // Icon for item 3
+      return 'fas fa-flask fa-3x'; 
     default:
-      return 'fas fa-question-circle fa-3x'; // Default icon if item number is not recognized
+      return 'fas fa-question-circle fa-3x'; 
   }
 }
 

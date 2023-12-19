@@ -4,7 +4,7 @@
 
     <div *ngIf="hasItems" class="item-container">
       <ng-container *ngFor="let item of shopItems; let i = index">
-        <div class="item" *ngIf="!itemBought[i]">
+        <div class="item" *ngIf="!itemBought[i] && item.price !== null">
           <div class="eeeee">
             <i [ngClass]="itemIcons[i]"></i>
           </div>
