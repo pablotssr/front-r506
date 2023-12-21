@@ -10,73 +10,50 @@ export class ShopComponent {
   hasShop: boolean = false;
   shopInfo: any = {};
   hasItems: boolean = true;
-
-  shopItems: any[] = []; 
-  itemBought: boolean[] = []; 
-  itemIcons: string[] = []; 
+  items: string[] = [];
+  prices: { value: any; disabled: boolean }[] = [];
 
   constructor(
     private userService: UserService
   ) {}
 
-ngOnInit() {
-    this.loadShopItems();
+  ngOnInit(){
+    this.shop();
   }
 
-  loadShopItems() {
+  shop() {
     this.userService.seeShop().then((res) => {
-      if (res) {
-        this.hasShop = true;
-        this.shopInfo = res;
-        this.hasItems = Object.keys(res).length > 0; 
-        if (this.hasItems) {
-          this.initializeShopItems(res);
+      this.hasShop = true;
+      this.shopInfo = res;
+      
+      // Extracting items and prices from the response
+      for (let key in this.shopInfo) {
+        if (key.startsWith('Item')) {
+          this.items.push(this.shopInfo[key]);
+        } else if (key.startsWith('Price')) {
+          this.prices.push({
+            value: this.shopInfo[key],
+            disabled: false // Button initially enabled
+          });
         }
-        console.log(res);
       }
+      console.log(res);
     });
   }
-
-  initializeShopItems(res: any) {
-    this.shopItems = [];
-    this.itemBought = [];
-    this.itemIcons = [];
   
-    for (let i = 1; i <= 3; i++) {
-      const itemName = res[`Item${i}`];
-      const price = res[`Price${i}`];
-  
-      if (itemName && price) {
-        this.shopItems.push({ name: itemName, price: price });
-        this.itemBought.push(false);
-        this.itemIcons.push(this.getItemIcon(i));
-      } else {
-        this.itemBought.push(true);
-      }
+  buyItem(itemIndex: number) {
+    const selectedItem = this.items[itemIndex];
+    if (!this.prices[itemIndex].disabled) {
+      this.userService.buyItem(itemIndex + 1).then(() => {
+        // Logic for updating UI after a successful purchase
+        this.prices[itemIndex].value = 'X'; // Update the price to 'X'
+        this.prices[itemIndex].disabled = true; // Disable the button
+        console.log(selectedItem);
+      }).catch((error) => {
+        // Handle errors if the purchase fails
+        console.error('Purchase failed:', error);
+      });
     }
   }
-
-  buyItem(itemNumber: number) {
-    this.userService.buyItem(itemNumber).then((res) => {
-      if (res) {
-        this.itemBought[itemNumber - 1] = true;
-        this.loadShopItems();
-        console.log(res);
-      }
-    });
-  }
-
-getItemIcon(itemNumber: number): string {
-  switch (itemNumber) {
-    case 1:
-      return 'fas fa-cubes-stacked fa-3x'; 
-    case 2:
-      return 'fas fa-utensils fa-3x'; 
-    case 3:
-      return 'fas fa-flask fa-3x'; 
-    default:
-      return 'fas fa-question-circle fa-3x'; 
-  }
-}
-
+  
 }

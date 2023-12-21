@@ -209,15 +209,17 @@ export class UserService {
     return this.requestApi('/action/give', 'POST', {item_Id});
   }
 
-  buyItem(item: number){
-    return this.requestApi('/item/buy', 'POST', {item});
-  }
   inventory(){
     return this.requestApi('/item/inventory/see','GET')
+  }
+
+  buyItem(item: number){
+    return this.requestApi('/item/buy', 'POST', {item});
   }
   seeShop(){
     return this.requestApi('/item/shop/see','GET');
   }
+  
   toClean(){
     return this.requestApi('/action/laver','GET');
   }
