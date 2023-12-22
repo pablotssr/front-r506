@@ -32,6 +32,15 @@ export class DiaryComponent {
     )
   }
 
+  getColorBasedOnActivityName(name: string): string {
+    const redColorActivities = ['sdfEncounter1', 'crushEncounter1', 'pigeon', 'covid', 'depression1', 'depression2'];
+      if (redColorActivities.includes(name)) {
+      return 'red'; 
+    } else {
+      return '#0ee11c'; 
+    }
+  }
+
   b(){
     this.userService.petDiary().then((res) => {
       if(res){

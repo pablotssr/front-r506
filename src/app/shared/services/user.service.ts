@@ -213,6 +213,10 @@ export class UserService {
     return this.requestApi('/item/inventory/see','GET')
   }
 
+  checkAction(){
+    return this.requestApi('/action/done', 'GET');
+  }
+  
   buyItem(item: number){
     return this.requestApi('/item/buy', 'POST', {item});
   }

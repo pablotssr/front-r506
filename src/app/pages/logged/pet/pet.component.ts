@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone   } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../shared/services/user.service';
 import { LoggedComponent } from '../logged.component';
@@ -28,9 +28,11 @@ export class PetComponent   {
   showInventoryForGiving: boolean = false;
   showOverlay = false;
   modalMessage = '';
+  buttonStates: { [key: number]: boolean } = {};
 
   constructor(
     private logged: LoggedComponent,
+    private zone: NgZone,
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
@@ -38,6 +40,7 @@ export class PetComponent   {
 
   ngOnInit(){
     this.a();
+    this.verif();
   }
 
   a(){
@@ -51,12 +54,41 @@ export class PetComponent   {
       }
   });
   }
+  verif() {
+    this.userService.checkAction().then((res) => {
+      if (res && res.actionsPerformed) {
+        const performedActions = res.actionsPerformed as number[]; // Assuming actionsPerformed is an array of action IDs
+      if (performedActions.length === 2){
+        this.enableAllButtons();
+      } else if (performedActions.length ===1 ){
+        performedActions.forEach((actionId) => {
+          this.disableButton(actionId); // Disable the button associated with the performed action
+        });}
+      }
+    });
+  }
+  enableAllButtons() {
+    // Loop through each button ID in buttonStates object
+    Object.keys(this.buttonStates).forEach(buttonId => {
+      // Set the state of each button to false (enabled)
+      this.zone.run(() => {
+        this.buttonStates[parseInt(buttonId)] = false;
+      });
+    });
+  }
+  disableButton(actionId: number) {
+    this.zone.run(() => {
+      this.buttonStates[actionId] = true;
+    });
+  }
 
 caresse(){
   this.userService.toPet().then((res) => {
     if (res && res.caresser) {
       this.caresseInfo = res.caresser;
       console.log(this.caresseInfo);
+      this.verif();
+
     }
   })
 }
@@ -66,6 +98,7 @@ laver(){
     if (res && res.laver) {
       this.laverInfo = res.laver;
       console.log(this.laverInfo);
+      this.verif();
     }
   })
 }

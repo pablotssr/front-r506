@@ -14,9 +14,11 @@
         </ng-container>
       </ng-container>
 
-        <ng-container *ngIf="!activity.description">
-          {{ activity.desc }}.
-        </ng-container>
+      <ng-container *ngIf="!activity.description && activity.name">
+        <span [ngStyle]="{'color': getColorBasedOnActivityName(activity.name)}">
+          {{ activity.desc }}
+        </span>
+      </ng-container>
       </li>
     </ul>
     <br />

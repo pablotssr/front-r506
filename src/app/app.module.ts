@@ -13,7 +13,6 @@ import { InfosComponent } from './pages/logged/infos/infos.component';
 import { SnakeComponent } from './pages/logged/pet/snake/snake.component';
 import { RunComponent } from './pages/logged/pet/run/run.component';
 import { MathsComponent } from './pages/logged/pet/maths/maths.component';
-import { InventoryComponent } from './pages/logged/inventory/inventory.component';
 import { EventsComponent } from './pages/logged/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './shared/services/user.service';
@@ -33,7 +32,6 @@ import { authGuard } from './shared/auth.guard';
     SnakeComponent,
     RunComponent,
     MathsComponent,
-    InventoryComponent,
     EventsComponent,
   ],
   imports: [
