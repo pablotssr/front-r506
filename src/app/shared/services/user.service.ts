@@ -3,19 +3,17 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { User } from '../model/user';
-// import { DateTime } from 'luxon';
 import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private token?: string;
+  public token?: string;
 
-  private googleToken?: {
+  public googleToken?: {
     token?: string;
     refresh_token: string;
-    // expires_at: DateTime;
   };
 
   urlParams: any;
@@ -41,17 +39,16 @@ export class UserService {
         this.user = res.user;
         this.savTokens(res.token);
       }
-    } else if(this.urlParams.has('apiToken')){
+    } else if (this.urlParams.has('apiToken')) {
       localStorage.setItem('apiToken', this.urlParams.get('apiToken'));
       this.user = this.urlParams.get('user');
-      this.token =  this.urlParams.get('apiToken');
+      this.token = this.urlParams.get('apiToken');
       console.log(this.token);
-      console.log(this.user);
       this.router.navigate(['/']);
     } else {
       let token = localStorage.getItem('apiToken');
       console.log(token);
-      if(token){
+      if (token) {
         this.token = token;
       }
     }
@@ -65,11 +62,6 @@ export class UserService {
     datas: any = {},
     httpOptions: any = {}
   ): Promise<any> {
-    // if (!this.onlineStatusService.getIsOnline()) {
-    //   console.log('no request because offline');
-    //   return;
-    // console.log('the token', this.token);
-    // console.log('a',this.user);
     const methodWanted = method.toLowerCase();
     let route = environment.apiUrl + action;
 
@@ -127,10 +119,7 @@ export class UserService {
     return req.toPromise();
   }
 
-  savTokens(apiToken: {
-    access_token: string;
-    //
-  }) {
+  savTokens(apiToken: { access_token: string }) {
     localStorage.setItem('apiToken', JSON.stringify(apiToken));
     this.token = apiToken.access_token;
   }
@@ -147,7 +136,6 @@ export class UserService {
   }
 
   isLogged(): boolean {
-    // console.log(this.token);
     return this.token !== undefined;
   }
 
@@ -178,59 +166,56 @@ export class UserService {
   }
 
   createPet(name: string) {
-    return this.requestApi('/pet', 'POST', {name})
-    }
+    return this.requestApi('/pet', 'POST', { name });
+  }
 
   getPet() {
     return this.requestApi('/pet', 'GET');
   }
 
-  petDiary(){
-    return this.requestApi('/pet/diary','GET');
-  }
-  
-  toPet(){
-    return this.requestApi('/action/caresser','GET');
+  petDiary() {
+    return this.requestApi('/pet/diary', 'GET');
   }
 
-  mathRes(score: number){
-    return this.requestApi('/action/maths', 'POST', {score});
+  toPet() {
+    return this.requestApi('/action/caresser', 'GET');
   }
 
-  snakeRes(score: number){
-    return this.requestApi('/action/snake', 'POST', {score});
+  mathRes(score: number) {
+    return this.requestApi('/action/maths', 'POST', { score });
   }
 
-  runRes(score: number){
-    return this.requestApi('/action/run', 'POST', {score});
+  snakeRes(score: number) {
+    return this.requestApi('/action/snake', 'POST', { score });
   }
 
-  giveItem(item_Id: number){
-    return this.requestApi('/action/give', 'POST', {item_Id});
+  runRes(score: number) {
+    return this.requestApi('/action/run', 'POST', { score });
   }
 
-  inventory(){
-    return this.requestApi('/item/inventory/see','GET')
+  giveItem(item_Id: number) {
+    return this.requestApi('/action/give', 'POST', { item_Id });
   }
 
-  checkAction(){
+  inventory() {
+    return this.requestApi('/item/inventory/see', 'GET');
+  }
+
+  checkAction() {
     return this.requestApi('/action/done', 'GET');
   }
-  
-  buyItem(item: number){
-    return this.requestApi('/item/buy', 'POST', {item});
+
+  buyItem(item: number) {
+    return this.requestApi('/item/buy', 'POST', { item });
   }
-  seeShop(){
-    return this.requestApi('/item/shop/see','GET');
+  seeShop() {
+    return this.requestApi('/item/shop/see', 'GET');
   }
-  
-  toClean(){
-    return this.requestApi('/action/laver','GET');
+
+  toClean() {
+    return this.requestApi('/action/laver', 'GET');
   }
   getInfo() {
     return this.requestApi('/auth/infos', 'GET');
   }
-  // isLogged(): boolean {
-  //   return this.token !== undefined;
-  // }
 }

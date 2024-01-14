@@ -1,13 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../../shared/services/user.service';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-run',
   templateUrl: './run.component.html',
-  styleUrls: ['./run.component.scss']
+  styleUrls: ['./run.component.scss'],
 })
 export class RunComponent implements OnInit {
-  @ViewChild('gameCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
+  @ViewChild('gameCanvas', { static: true })
+  canvasRef!: ElementRef<HTMLCanvasElement>;
   score = 0;
   obstacleWidth = 20;
   obstacleHeight = 20;
@@ -23,12 +24,8 @@ export class RunComponent implements OnInit {
   runScore: boolean = false;
   runResult: any = {};
 
-  constructor(
-    private userService: UserService,
-    private router: Router
+  constructor(private userService: UserService, private router: Router) {}
 
-  ) {}
-  
   ngOnInit(): void {
     const canvas = this.canvasRef.nativeElement;
     const ctx = canvas.getContext('2d')!;
@@ -60,7 +57,12 @@ export class RunComponent implements OnInit {
 
   drawObstacle(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = '#000';
-    ctx.fillRect(this.obstacleX, this.groundY - this.obstacleHeight, this.obstacleWidth, this.obstacleHeight);
+    ctx.fillRect(
+      this.obstacleX,
+      this.groundY - this.obstacleHeight,
+      this.obstacleWidth,
+      this.obstacleHeight
+    );
   }
 
   jump() {
@@ -88,7 +90,7 @@ export class RunComponent implements OnInit {
     this.drawGround(ctx);
     this.drawDino(ctx);
     this.drawObstacle(ctx);
-    this.obstacleX -= (3 + Math.floor(this.score / 100));
+    this.obstacleX -= 3 + Math.floor(this.score / 100);
     if (this.obstacleX < -20) {
       this.obstacleX = ctx.canvas.width + Math.random() * 200;
       this.obstacleWidth = Math.random() < 0.5 ? 40 : 20;
@@ -110,7 +112,7 @@ export class RunComponent implements OnInit {
           this.navigateTo('pet');
           console.log(this.runResult);
         }
-    });
+      });
     }
   }
 
@@ -129,12 +131,11 @@ export class RunComponent implements OnInit {
     });
   }
 
-  navigateTo(page: string){
-    const currentUrl = this.router.url.split('/')[1]; // Get the current route path
-  
+  navigateTo(page: string) {
+    const currentUrl = this.router.url.split('/')[1];
     console.log(currentUrl);
-  if (currentUrl !== page) {
-     this.router.navigate([`/${page}`]); 
-   }
-   }
+    if (currentUrl !== page) {
+      this.router.navigate([`/${page}`]);
+    }
+  }
 }

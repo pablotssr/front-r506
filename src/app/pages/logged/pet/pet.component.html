@@ -297,18 +297,32 @@
         <i class="fas fa-briefcase fa-2xl"></i>
       </button>
     </div>
-
   </div>
 
   <div class="container2">
     <div class="game-container">
-      <button class="btn2" (click)="caresse()" [disabled]="buttonStates[1]" [ngClass]="{ 'disabled-red': buttonStates[1] }">
+      <button
+        class="btn2"
+        (click)="caresse()"
+        [disabled]="buttonStates[1]"
+        [ngClass]="{ 'disabled-red': buttonStates[1] }"
+      >
         <i class="fas fa-hand-sparkles fa-3x"></i>
       </button>
-      <button class="btn2" (click)="inventoryGiving()" [disabled]="buttonStates[2]" [ngClass]="{ 'disabled-red': buttonStates[2] }">
+      <button
+        class="btn2"
+        (click)="inventoryGiving()"
+        [disabled]="buttonStates[2]"
+        [ngClass]="{ 'disabled-red': buttonStates[2] }"
+      >
         <i class="fas fa-hand-holding-heart fa-3x"></i>
       </button>
-      <button class="btn2" (click)="laver()" [disabled]="buttonStates[3]" [ngClass]="{ 'disabled-red': buttonStates[3] }">
+      <button
+        class="btn2"
+        (click)="laver()"
+        [disabled]="buttonStates[3]"
+        [ngClass]="{ 'disabled-red': buttonStates[3] }"
+      >
         <i class="fas fa-bath fa-3x"></i>
       </button>
       <button class="btn2" (click)="showNewButtonsWindow()">
@@ -317,7 +331,12 @@
     </div>
   </div>
 
-  <div class="message-box" [class.show]="showMessageDiv" #messageBox [hidden]="!showMessageDiv" >
+  <div
+    class="message-box"
+    [class.show]="showMessageDiv"
+    #messageBox
+    [hidden]="!showMessageDiv"
+  >
     <p [innerHTML]="modalMessage"></p>
 
     <div *ngIf="showInventoryForDisplay">
@@ -329,19 +348,20 @@
         </div>
       </div>
     </div>
-    
-    <!-- For clickable display -->
+
     <div *ngIf="showInventoryForGiving">
       <div class="inventory-items">
         <div *ngIf="userInventory" class="horizontal-inventory">
-          <div *ngFor="let item of userInventory" class="inventory-item" (click)="handleItemClick(item.id)">
+          <div
+            *ngFor="let item of userInventory"
+            class="inventory-item"
+            (click)="handleItemClick(item.id)"
+          >
             <i [ngClass]="getIconClass(item.item_id)"></i>
           </div>
         </div>
       </div>
     </div>
-
-
 
     <div
       class="new-buttons-container"
@@ -349,17 +369,54 @@
       *ngIf="showNewButtons == true"
     >
       <h3>Activités</h3>
-      <button class="btn2" (click)="navigateTo('snake')" [disabled]="buttonStates[4]" [ngClass]="{ 'disabled-red': buttonStates[4] }">
+      <button
+        class="btn2"
+        (click)="navigateTo('snake')"
+        [disabled]="buttonStates[4]"
+        [ngClass]="{ 'disabled-red': buttonStates[4] }"
+      >
         <i class="fas fa-staff-snake fa-3x"></i>
       </button>
-      <button class="btn2" (click)="navigateTo('run')" [disabled]="buttonStates[5]" [ngClass]="{ 'disabled-red': buttonStates[5]}">
+      <button
+        class="btn2"
+        (click)="navigateTo('run')"
+        [disabled]="buttonStates[5]"
+        [ngClass]="{ 'disabled-red': buttonStates[5] }"
+      >
         <i class="fas fa-person-running fa-3x"></i>
       </button>
-      <button class="btn2" (click)="navigateTo('maths')" [disabled]="buttonStates[6]" [ngClass]="{ 'disabled-red': buttonStates[6] }">
+      <button
+        class="btn2"
+        (click)="navigateTo('maths')"
+        [disabled]="buttonStates[6]"
+        [ngClass]="{ 'disabled-red': buttonStates[6] }"
+      >
         <i class="fas fa-calculator fa-3x"></i>
       </button>
     </div>
   </div>
 
-  <div     class="overlay"     id="overlay"     [hidden]="!showMessageDiv"     (click)="closeMessage()"   ></div>
+  <div
+    class="message-box"
+    [class.show]="hasEvent"
+    #eventBox
+    [hidden]="!hasEvent"
+  >
+    <p><b>Évènement</b></p>
+    <p>{{ nomdevent }}</p>
+    <button class="btn-close" (click)="closeEvent()">Close</button>
+  </div>
+
+  <div
+    class="overlay"
+    id="overlay"
+    [hidden]="!showMessageDiv"
+    (click)="closeMessage()"
+  ></div>
+  <div
+    class="overlay"
+    id="overlay"
+    [hidden]="!hasEvent"
+    (click)="closeMessage()"
+  ></div>
 </div>

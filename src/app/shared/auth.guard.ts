@@ -1,5 +1,11 @@
-import {ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot} from '@angular/router';
-import {Injectable} from "@angular/core";
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { Injectable } from '@angular/core';
 import { UserService } from './services/user.service';
 
 @Injectable({
@@ -7,10 +13,7 @@ import { UserService } from './services/user.service';
 })
 export class authGuard implements CanActivate {
   private url: string = '';
-  constructor(
-    private userService: UserService,
-    private router: Router,
-  ) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   private authState(): boolean {
     if (this.isLoginOrRegister()) {
@@ -25,10 +28,10 @@ export class authGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['/login']);
-  console.log('noauth');
+    console.log('noauth');
     return false;
   }
-  
+
   private isLoginOrRegister(): boolean {
     if (this.url.includes('/login')) {
       return true;
@@ -36,7 +39,10 @@ export class authGuard implements CanActivate {
     return false;
   }
 
-  async canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  async canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean> {
     if (!this.userService.isInit) {
       let res = await this.userService.initPromise.subscribe((res) => {
         if (res) {
@@ -53,7 +59,6 @@ export class authGuard implements CanActivate {
 
   checkLogin(state: RouterStateSnapshot): boolean {
     this.url = state.url;
-    // console.log(this.url);
     if (this.userService.isLogged()) {
       return this.authState();
     }

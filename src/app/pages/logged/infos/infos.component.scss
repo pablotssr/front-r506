@@ -1,24 +1,24 @@
 .nom {
-    font-size: 40px;
-    text-transform: capitalize;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .ct {
-    font-size:25px;
-    text-transform: capitalize;
+  font-size: 40px;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 30px;
+}
 
-  }
+.ct {
+  font-size: 25px;
+}
 
-  .ct::first-letter{
-    text-transform: capitalize;
-  }
-  .container {
-    display: flex;
+.nom2 {
+  text-transform: capitalize;
+  font-size: 25px;
+}
+
+.container {
+  display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Adjust vertical space between elements */
-  align-items: flex-start; /* Adjust horizontal alignment of elements */
-  height: calc(70vh); /* Calculate height to occupy remaining vertical space */
+  justify-content: space-between;
+  align-items: flex-start;
+  height: calc(70vh);
   padding-left: 20px;
-
-  }
+}

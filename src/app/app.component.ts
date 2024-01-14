@@ -9,7 +9,6 @@ export class AppComponent {
   
   title = 'front-r506';
   constructor(public userService: UserService) {}
-  // logoutbtn(){
-  //   window.location.href = environment.apiUrl + '/logout'
-  // }
+
 }
+ 

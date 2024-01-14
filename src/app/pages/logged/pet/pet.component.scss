@@ -8,38 +8,38 @@
   fill: #333333;
 }
 .cls-3 {
-    fill: #4a9acc;
-  }
+  fill: #4a9acc;
+}
 
 .color-1 {
-  fill: #37C191;
+  fill: #37c191;
 }
 .color-2 {
-  fill: #DB81CC;
+  fill: #db81cc;
 }
 .color-3 {
-  fill: #C70039;
+  fill: #c70039;
 }
 .color-4 {
-  fill: #5DADE2;
+  fill: #5dade2;
 }
 .color-5 {
-  fill: #5D6D7E;
+  fill: #5d6d7e;
 }
 .color-6 {
-  fill: #F7DC6F;
+  fill: #f7dc6f;
 }
 .color-7 {
-  fill: #58D68D;
+  fill: #58d68d;
 }
 .color-8 {
-  fill: #DAF7A6;
+  fill: #daf7a6;
 }
 .color-9 {
-  fill: #F5B7B1;
+  fill: #f5b7b1;
 }
 .color-10 {
-    fill: #fff;
+  fill: #fff;
 }
 
 .container {
@@ -48,10 +48,9 @@
   justify-content: center;
   align-items: center;
   display: flex;
-  // padding-bottom: 20px;
 }
 .disabled-red {
-  background-color: red!important;
+  background-color: red !important;
 }
 
 .new-buttons-container {
@@ -64,7 +63,6 @@
 h3 {
   font-size: 25px;
   font-weight: 600;
-
 }
 .button-container {
   display: flex;
@@ -72,18 +70,17 @@ h3 {
   margin-left: 20px;
 }
 
-.container2{
-  
+.container2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 .game-container {
   display: flex;
-  justify-content: center; /* Center items horizontally */
+  justify-content: center;
 
   flex-wrap: wrap;
   gap: 10%;
@@ -91,9 +88,9 @@ h3 {
 
 .btn2 {
   border: 2px solid black;
-  border-radius: 50%; /* Rounded corners */
-  width: 130px; /* Adjust as needed */
-  height: 130px; /* Adjust as needed */
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
   background-color: white;
   cursor: pointer;
 }
@@ -110,10 +107,9 @@ button {
 }
 
 button:hover {
-  background-color: #ccc; /* Clear gray on hover */
+  background-color: #ccc;
 }
 
-/* Styles for message box */
 .message-box {
   display: hidden;
   z-index: 3;
@@ -130,8 +126,6 @@ button:hover {
   border-radius: 10px;
   padding: 20px;
 }
-
-
 
 .message-box.show {
   display: block;
@@ -152,25 +146,28 @@ button:hover {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.285);
-  z-index: 2; 
-  }
+  z-index: 2;
+}
 
-  .horizontal-inventory {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20%, 1fr)); /* Three items per row */
-    gap: 10px; /* Adjust the gap between items */
-  }
-  .inventory-items{
-    width: 350px;
-  }
-  .inventory-item {
-    display: flex; /* Use flexbox */
-    align-items: center; /* Center vertically */
-    justify-content: center; /* Center horizontally */
-    border: 1px solid #999;
-    border-radius: 10px;
-    padding: 10px 0px;
-    box-sizing: border-box;
-    max-width: 100%; /* Ensure each item fills the specified width */
-  }
-  
+.horizontal-inventory {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+  gap: 10px;
+}
+.inventory-items {
+  width: 350px;
+}
+.inventory-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #999;
+  border-radius: 10px;
+  padding: 10px 0px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.event-display {
+  background-color: yellow;
+}

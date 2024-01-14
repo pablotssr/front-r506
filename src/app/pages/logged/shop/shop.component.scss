@@ -1,53 +1,52 @@
 .item-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start; /* Align items to the start of the cross axis */
-  }
-  
-  .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    margin-bottom: 20px; /* Add space between items */
-  }
-  .cls-2 {
-    fill: #333333;
-  }
-  .eeeee {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid black;
-    border-radius: 10px;
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    cursor: pointer;
-    margin-bottom: 10px; /* Add space between icon and button */
-  }
-  
-  button {
-    border: 2px solid black;
-    border-radius: 5px; /* Change button shape to a small rectangle */
-    width: 100px; /* Adjust button width */
-    height: 40px; /* Adjust button height */
-    background-color: white;
-    font-weight: 700;
-    font-size: 20px;
-    cursor: pointer;
-  }
-  
-  .nom {
-    font-size: 40px;
-    text-transform: capitalize;
-    text-align: center;
-    margin-bottom: 30px;
-  }
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
 
-  .tavernier {
-    font-size: 40px;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  margin-bottom: 20px;
+}
+.cls-2 {
+  fill: #333333;
+}
+.eeeee {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.nom {
+  font-size: 40px;
+  text-transform: capitalize;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.tavernier {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 30px;
+}

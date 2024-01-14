@@ -4,27 +4,25 @@ import { UserService } from '../../../shared/services/user.service';
 @Component({
   selector: 'app-infos',
   templateUrl: './infos.component.html',
-  styleUrls: ['./infos.component.scss']
+  styleUrls: ['./infos.component.scss'],
 })
 export class InfosComponent {
   userHasInfos: boolean = false;
   userInfo: any = {};
 
-  constructor(
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.a();
   }
 
-  a(){
+  a() {
     this.userService.getInfo().then((res) => {
-      if (res ) {
+      if (res) {
         this.userHasInfos = true;
         this.userInfo = res;
         console.log(res);
       }
-  });
-}
+    });
+  }
 }

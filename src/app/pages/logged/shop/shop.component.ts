@@ -4,7 +4,7 @@ import { UserService } from '../../../shared/services/user.service';
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss']
+  styleUrls: ['./shop.component.scss'],
 })
 export class ShopComponent implements OnInit {
   hasShop: boolean = false;
@@ -13,11 +13,9 @@ export class ShopComponent implements OnInit {
   items: string[] = [];
   prices: { value: any; disabled: boolean }[] = [];
 
-  constructor(
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.shop();
   }
 
@@ -32,7 +30,7 @@ export class ShopComponent implements OnInit {
         } else if (key.startsWith('Price')) {
           this.prices.push({
             value: this.shopInfo[key],
-            disabled: false 
+            disabled: false,
           });
         }
       }
@@ -43,14 +41,16 @@ export class ShopComponent implements OnInit {
   buyItem(itemIndex: number) {
     const selectedItem = this.items[itemIndex];
     if (!this.prices[itemIndex].disabled) {
-      this.userService.buyItem(itemIndex + 1).then(() => {
-        this.prices[itemIndex].value = 'X'; 
-        this.prices[itemIndex].disabled = true; 
-        console.log(selectedItem);
-      }).catch((error) => {
-        console.error('Purchase failed:', error);
-      });
+      this.userService
+        .buyItem(itemIndex + 1)
+        .then(() => {
+          this.prices[itemIndex].value = 'X';
+          this.prices[itemIndex].disabled = true;
+          console.log(selectedItem);
+        })
+        .catch((error) => {
+          console.error('Purchase failed:', error);
+        });
     }
   }
-  
 }

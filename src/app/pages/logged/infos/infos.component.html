@@ -3,26 +3,33 @@
 <p class="nom">{{userInfo.user}}</p>
 <br>
 <div class='container'>
-    <p *ngIf='userInfo.argent == null' class="ct"><i class="fas fa-coins"></i> : 0 € </p>
-    <p *ngIf="userInfo.argent !== null" class="ct"><i class="fas fa-coins"></i> : {{userInfo.argent}} €</p>
+    <p *ngIf='userInfo.argent == null' class="ct"><b>Argent :</b> 0 € </p>
+    <p *ngIf="userInfo.argent !== null" class="ct"><b>Argent :</b> {{userInfo.argent}} €</p>
+    
+    <p *ngIf='userInfo.pet_actuel.age == 1' class="ct"><b>Votre pet</b> : <span class="nom2">{{userInfo.pet_actuel.nom}}</span>, {{userInfo.pet_actuel.age}} jour</p>
+    <p *ngIf='userInfo.pet_actuel.age > 1' class="ct"><b>Votre pet</b> : <span class="nom2">{{userInfo.pet_actuel.nom}}</span>, {{userInfo.pet_actuel.age}} jours</p>
+
+    <p *ngIf='userInfo.nb_de_pet_morts == null' class="ct"> <b>Pets morts</b> : 0 morts</p>
+    <p *ngIf='userInfo.nb_de_pet_morts == 1' class="ct"> <b>Pets morts</b> : 1 mort</p>
+    <p *ngIf='userInfo.nb_de_pet_morts > 1' class="ct"><b>Pets morts</b> : {{userInfo.nb_de_pet_morts}} morts</p>
+    
+    <p *ngIf='userInfo.pet_le_plus_vieux.age == 1' class="ct"><b>Plus vieux pet</b> : <span class="nom2">{{userInfo.pet_le_plus_vieux.nom}}</span>, {{userInfo.pet_le_plus_vieux.age}} jour</p>
+    <p *ngIf='userInfo.pet_le_plus_vieux.age > 1' class="ct"><b>Plus vieux pet</b> : <span class="nom2">{{userInfo.pet_le_plus_vieux.nom}}</span>, {{userInfo.pet_le_plus_vieux.age}} jours</p>
+    
+    <p *ngIf='userInfo.vous_avez_rencontre == null' class="ct"> <b>SDF rencontrés</b> : 0 </p>
+    <p *ngIf='userInfo.vous_avez_rencontre != null' class="ct"><b>SDF rencontrés</b> : {{userInfo.vous_avez_rencontre}}
+    <br/>
+        <span style="padding-left: 15px;"><b>Combats gagnés :</b></span> {{userInfo.victoires}}
+    <br/>
+        <span style="padding-left: 15px;"><b>Combats perdus :</b></span> {{userInfo.defaites}}
+    </p>
+    
+    <p *ngIf='userInfo.vous_avez_eu_le_covid == null' class="ct"><b>Covided</b> : 0 fois</p>
+    <p *ngIf='userInfo.vous_avez_eu_le_covid != null' class="ct"><b>Covided</b>  : {{userInfo.vous_avez_eu_le_covid}} fois</p>
+    
+    <p *ngIf='userInfo.vous_avez_fait == null' class="ct"> <b>Dépressions</b> : 0</p>
+    <p *ngIf='userInfo.vous_avez_fait != null' class="ct"> <b>Dépressions</b> : {{userInfo.vous_avez_fait}} </p>
     <br>
-    <p *ngIf='userInfo.pet_actuel.age == 1' class="ct"> <i class="fas fa-face-smile"></i> : {{userInfo.pet_actuel.nom}}, {{userInfo.pet_actuel.age}} an</p>
-    <p *ngIf='userInfo.pet_actuel.age > 1' class="ct"><i class="fas fa-face-smile"></i> : {{userInfo.pet_actuel.nom}}, {{userInfo.pet_actuel.age}} ans</p>
-    <br>
-    <p *ngIf='userInfo.nb_de_pet_morts == null' class="ct"> <i class="fas fa-skull"></i> : 0</p>
-    <p *ngIf='userInfo.nb_de_pet_morts != null' class="ct"><i class="fas fa-skull"></i> : {{userInfo.nb_de_pet_morts}} morts</p>
-    <br>
-    <p *ngIf='userInfo.pet_le_plus_vieux.age == 1' class="ct"> <i class="fas fa-person-cane"></i> : {{userInfo.pet_le_plus_vieux.nom}}, {{userInfo.pet_le_plus_vieux.age}} an</p>
-    <p *ngIf='userInfo.pet_le_plus_vieux.age > 1' class="ct"><i class="fas fa-person-cane"></i> : {{userInfo.pet_le_plus_vieux.nom}}, {{userInfo.pet_le_plus_vieux.age}} ans</p>
-    <br>
-    <p *ngIf='userInfo.vous_avez_rencontre == null' class="ct"> <i class="fas fa-tent"></i> : 0 </p>
-    <p *ngIf='userInfo.vous_avez_rencontre != null' class="ct"><i class="fas fa-tent"></i> : {{userInfo.vous_avez_rencontre}} </p>
-    <br>
-    <p *ngIf='userInfo.vous_avez_eu_le_covid == null' class="ct"> <i class="fas fa-virus"></i> : 0</p>
-    <p *ngIf='userInfo.vous_avez_eu_le_covid != null' class="ct"><i class="fas fa-virus"></i> : {{userInfo.vous_avez_eu_le_covid}} </p>
-    <br>
-    <p *ngIf='userInfo.vous_avez_fait == null' class="ct"> <i class="fas fa-pills"></i> : 0</p>
-    <p *ngIf='userInfo.vous_avez_fait != null' class="ct"><i class="fas fa-pills"></i> : {{userInfo.vous_avez_fait}} </p>
     
 </div>
 

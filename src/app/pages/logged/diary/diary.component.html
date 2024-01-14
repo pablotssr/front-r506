@@ -6,22 +6,23 @@
     <ul>
       <li class="actions" *ngFor="let activity of diaryInfo[day]">
         <ng-container *ngIf="activity.description">
-        <ng-container *ngIf="activity.score != 0">
-          {{ activity.description }} - {{ activity.score }} points.
-        </ng-container>
-        <ng-container *ngIf="activity.score == 0">
-          {{ activity.description }}.
-        </ng-container>
-      </ng-container>
+          <ng-container *ngIf="activity.score != 0">
+            {{ activity.description }} - {{ activity.score }} points.
+          </ng-container>
 
-      <ng-container *ngIf="!activity.description && activity.name">
-        <span [ngStyle]="{'color': getColorBasedOnActivityName(activity.name)}">
-          {{ activity.desc }}
-        </span>
-      </ng-container>
+          <ng-container *ngIf="activity.score == 0">
+            {{ activity.description }}.
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="!activity.description && activity.name">
+          <span [ngStyle]="{ color: getColorBasedOnActivityName(activity.name) }">
+            {{ activity.desc }}
+          </span>
+        </ng-container>
       </li>
     </ul>
-    <br />
+    <br/>
   </div>
-  <br /><br />
+  <br/><br/>
 </div>

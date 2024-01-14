@@ -4,8 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { LoggedComponent } from './pages/logged/logged.component';
-import { CompleteRegisteringComponent } from './pages/complete-registering/complete-registering.component';
-import { NewPetComponent } from './pages/logged/new-pet/new-pet.component';
 import { PetComponent } from './pages/logged/pet/pet.component';
 import { DiaryComponent } from './pages/logged/diary/diary.component';
 import { ShopComponent } from './pages/logged/shop/shop.component';
@@ -13,7 +11,6 @@ import { InfosComponent } from './pages/logged/infos/infos.component';
 import { SnakeComponent } from './pages/logged/pet/snake/snake.component';
 import { RunComponent } from './pages/logged/pet/run/run.component';
 import { MathsComponent } from './pages/logged/pet/maths/maths.component';
-import { EventsComponent } from './pages/logged/events/events.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './shared/services/user.service';
 import { authGuard } from './shared/auth.guard';
@@ -23,8 +20,6 @@ import { authGuard } from './shared/auth.guard';
     AppComponent,
     LoginComponent,
     LoggedComponent,
-    CompleteRegisteringComponent,
-    NewPetComponent,
     PetComponent,
     DiaryComponent,
     ShopComponent,
@@ -32,7 +27,6 @@ import { authGuard } from './shared/auth.guard';
     SnakeComponent,
     RunComponent,
     MathsComponent,
-    EventsComponent,
   ],
   imports: [
     BrowserModule,
